@@ -1,6 +1,16 @@
 ### pulsar-flinksql-1.13.2
 
 ```
+sqllib
+
+avro-1.10.0.jar					flink-sql-avro-1.12.1.jar
+flink-json-1.12.1.jar				pulsar-flink-sql-connector_2.11-1.12.4.6.jar
+
+cd /Users/tspann/Documents/servers/flink112
+./bin/start-cluster.sh
+./bin/sql-client.sh embedded --library /Users/tspann/Documents/servers/flink112/sqllib
+
+
 CREATE TABLE iotjetsonjson
 (
   `id` STRING, uuid STRING, ir STRING,
