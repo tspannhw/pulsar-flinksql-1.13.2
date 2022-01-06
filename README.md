@@ -52,6 +52,52 @@ CREATE TABLE default_catalog.default_database.scada
   'scan.startup.mode' = 'earliest'
 );
 
+
+CREATE TABLE pulsar (
+  `physical_1` STRING,
+  `physical_2` INT,
+  `eventTime` TIMESTAMP(3) METADATA,
+  `properties` MAP<STRING, STRING> METADATA ,
+  `topic` STRING METADATA VIRTUAL,
+  `sequenceId` BIGINT METADATA VIRTUAL,
+  `key` STRING ,
+  `physical_3` BOOLEAN
+) WITH (
+  'connector' = 'pulsar',
+  'topic' = 'persistent://public/default/topic82547611',
+  'key.format' = 'raw',
+  'key.fields' = 'key',
+  'value.format' = 'avro',
+  'service-url' = 'pulsar://localhost:6650',
+  'admin-url' = 'http://localhost:8080',
+  'scan.startup.mode' = 'earliest' 
+)
+
+CREATE TABLE iotjetsonjson2
+(
+  `id` STRING, uuid STRING, ir STRING,
+  `end` STRING, lux STRING, gputemp STRING, 
+  cputemp STRING, `te` STRING, systemtime STRING, hum STRING,
+ memory STRING, gas STRING, pressure STRING, 
+ `host` STRING, diskusage STRING, ipaddress STRING, macaddress STRING, 
+  gputempf STRING, host_name STRING, camera STRING, filename STRING, 
+    `runtime` STRING, cpu STRING,cputempf STRING, imageinput STRING,
+    `networktime` STRING, top1 STRING, top1pct STRING, 
+  publishTime TIMESTAMP(3) METADATA,
+  WATERMARK FOR publishTime AS publishTime - INTERVAL '5' SECOND
+) WITH (
+  'connector' = 'pulsar',
+  'topic' = 'persistent://public/default/iotjetsonjson',
+  'value.format' = 'json',
+  'scan.startup.mode' = 'earliest',
+  'service-url' = 'pulsar://pulsar1:6650',
+  'admin-url' = 'http://pulsar1:8080',  
+  'key.format' = 'raw',
+  'key.fields' = 'key',
+  'scan.startup.mode' = 'earliest' 
+);
+
+
 ```
 
 ### Postgresql Sink 2.9.1
