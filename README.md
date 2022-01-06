@@ -22,4 +22,24 @@ CREATE TABLE iotjetsonjson
   'admin-url' = 'http://pulsar1:8080'
 );
 
+
+CREATE TABLE default_catalog.default_database.scada 
+(
+   uuid STRING, 
+	systemtime STRING,  
+	ipaddress STRING, host STRING, 
+	host_name STRING, macaddress STRING, 
+	endtime STRING, runtime STRING, 
+	starttime STRING,
+  publishTime TIMESTAMP(3) METADATA,
+  WATERMARK FOR publishTime AS publishTime - INTERVAL '5' SECOND
+) WITH (
+  'connector' = 'pulsar',
+  'topic' = 'persistent://public/default/mqtt-2',
+  'value.format' = 'json',
+  'service-url' = 'pulsar://pulsar1:6650',
+  'admin-url' = 'http://pulsar1:8080',
+  'scan.startup.mode' = 'earliest'
+);
+
 ```
