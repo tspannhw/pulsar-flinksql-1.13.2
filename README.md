@@ -53,3 +53,9 @@ CREATE TABLE default_catalog.default_database.scada
 );
 
 ```
+
+### Postgresql Sink 2.9.1
+
+* https://github.com/tspannhw/FLiP-CloudIngest
+
+
