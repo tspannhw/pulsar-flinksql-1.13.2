@@ -33,6 +33,7 @@ CREATE TABLE iotjetsonjson
 );
 
 
+
 CREATE TABLE default_catalog.default_database.scada 
 (
    uuid STRING, 
@@ -160,6 +161,23 @@ CREATE TABLE iotjetsonjson4
 
 select top1, top1pct, cputempf, gputempf, cpu, filename, memory, systemtime, publishTime, ipaddress from iotjetsonjson4;
 ```
+
+
+CREATE TABLE influxsensors
+(
+  `value` STRING, 
+  publishTime TIMESTAMP(3) METADATA,
+  WATERMARK FOR publishTime AS publishTime - INTERVAL '5' SECOND
+) WITH (
+  'connector' = 'pulsar',
+  'topic' = 'persistent://public/default/sensors',
+  'value.format' = 'json',
+  'service-url' = 'pulsar://pulsar1:6650',
+  'admin-url' = 'http://pulsar1:8080'
+);
+
+
+
 
 ### Postgresql Sink 2.9.1
 
