@@ -164,17 +164,13 @@ select top1, top1pct, cputempf, gputempf, cpu, filename, memory, systemtime, pub
 
 
 CREATE TABLE influxsensors
-(
-  `value` STRING, 
-  publishTime TIMESTAMP(3) METADATA,
-  WATERMARK FOR publishTime AS publishTime - INTERVAL '5' SECOND
-) WITH (
-  'connector' = 'pulsar',
-  'topic' = 'persistent://public/default/sensors',
-  'value.format' = 'json',
-  'service-url' = 'pulsar://pulsar1:6650',
-  'admin-url' = 'http://pulsar1:8080'
-);
+ ( `value`  STRING, `publishTime` TIMESTAMP(3) METADATA, 
+WATERMARK FOR publishTime AS publishTime - INTERVAL '5' SECOND ) 
+WITH ( 'connector' = 'pulsar', 
+'topic' = 'persistent://public/default/sensors', 
+'value.format' = 'json',
+ 'service-url' = 'pulsar://pulsar1:6650', 
+'admin-url' = 'http://pulsar1:8080' );
 
 
 
