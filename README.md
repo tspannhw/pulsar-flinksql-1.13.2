@@ -160,7 +160,7 @@ CREATE TABLE iotjetsonjson4
 
 
 select top1, top1pct, cputempf, gputempf, cpu, filename, memory, systemtime, publishTime, ipaddress from iotjetsonjson4;
-```
+
 
 
 CREATE TABLE influxsensors
@@ -172,8 +172,14 @@ WITH ( 'connector' = 'pulsar',
  'service-url' = 'pulsar://pulsar1:6650', 
 'admin-url' = 'http://pulsar1:8080' );
 
+CREATE CATALOG pulsar WITH (
+   'type' = 'pulsar',
+   'service-url' = 'pulsar://pulsar1:6650',
+   'admin-url' = 'http://pulsar1:8080',
+   'format' = 'json'
+);
 
-
+```
 
 ### Postgresql Sink 2.9.1
 
